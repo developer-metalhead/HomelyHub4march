@@ -15,7 +15,7 @@ const Modal = ({ propertyName, images, onClose }) => {
         <div className="modal-backdrop">
             <div className="modal-content">
                 <div className="modal-header sticky-top bg-light" style={{ top: '-20px' }}>
-                    <h5 className="modal-title">{propertyName} - All Images</h5>
+                    <h5 className="modal-title">{propertyName}All Images</h5>
                     <button type="button" className="btn btn-outline-success" onClick={onClose}> Close </button>
                 </div>
                 <div className="modal-body">
