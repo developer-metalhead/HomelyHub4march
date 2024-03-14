@@ -2,19 +2,21 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProperties } from "../../Store/Property/property-action";
 import { propertyAction } from "../../Store/Property/property-slice";
+import { Link } from "react-router-dom";
 
-const Card = ({ image, address, price, name }) => {
+const Card = ({ id, image, address, price, name }) => {
   return (
     <figure className="property">
-      <img src={image} alt="Propertyimg" />
+      <Link to={`/propertylist/${id}`}>
+        <img src={image} alt="Propertyimg" />
+      </Link>
+
       <h4>{name}</h4>
       <figcaption>
         <main className="propertydetails">
           <h5>{name}</h5>
           <h6>
-            <span className="material-symbols-outlined houseicon">
-              home_pin
-            </span>
+            <span className="material-symbols-outlined houseicon">home_pin</span>{" "}
             {address}
           </h6>
           <p>
@@ -46,7 +48,7 @@ const PropertyList = () => {
   return (
     <>
       {properties.length === 0 ? (
-        <p className="not_found"><h1>No properties like that exist</h1></p>
+        <p className="not_found">"Property not found......"</p>
       ) : (
         <div className="propertylist">
           {properties.map((property) => (
@@ -55,30 +57,25 @@ const PropertyList = () => {
               id={property._id}
               image={property.images[0].url}
               name={property.propertyName}
-              address={`${property.address.city}, ${property.address.state},${property.address.pincode}`}
+              address={`${property.address.city}, ${property.address.state}, ${property.address.pincode}`}
               price={property.price}
             />
           ))}
         </div>
       )}
 
-      {/* Pagination */}
+      {/* Pagination Control */}
       <div className="pagination">
-        {/* previous button */}
-        <button
-          className="previous_btn"
+        <button className="previous_btn"
           onClick={() => setCurrentPage((prev) => ({ page: prev.page - 1 }))}
-          disabled={currentPage.page === 1}
-        >
-          <span class="material-symbols-outlined">arrow_back_ios_new</span>
+          disabled={currentPage.page === 1}>
+          <span className="material-symbols-outlined">arrow_back_ios_new</span>
         </button>
 
-        <button
-          className="next_btn"
+        <button className="next_btn"
           onClick={() => setCurrentPage((prev) => ({ page: prev.page + 1 }))}
-          disabled={properties.length < 12 || currentPage.page === lastPage}
-        >
-          <span class="material-symbols-outlined">arrow_forward_ios</span>
+          disabled={properties.length < 12 || currentPage.page === lastPage}>
+          <span className="material-symbols-outlined">arrow_forward_ios</span>
         </button>
       </div>
     </>
