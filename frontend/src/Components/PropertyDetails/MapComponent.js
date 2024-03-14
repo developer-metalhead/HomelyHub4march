@@ -2,12 +2,20 @@ import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
+
+// Import marker icon images
+import iconShadow from "leaflet/dist/images/marker-shadow.png";
+import iconUrl from "leaflet/dist/images/marker-icon.png";
+import iconRetinaUrl from "leaflet/dist/images/marker-icon-2x.png";
+
+// Delete the default icon URL method
 delete L.Icon.Default.prototype._getIconUrl;
 
+// Merge new options for the default icon
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
-  iconUrl: require("leaflet/dist/images/marker-icon.png"),
-  shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
+  iconRetinaUrl,
+  iconUrl,
+  shadowUrl: iconShadow,
 });
 
 const MapComponent = ({ address }) => {
@@ -17,11 +25,10 @@ const MapComponent = ({ address }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    let isMounted = true; //to track component mount status
+    let isMounted = true;
 
     const fetchCoordinates = async () => {
       try {
-        console.log("useEffect");
         const response = await fetch(
           `https://nominatim.openstreetmap.org/search?format=json&q=${city}`
         );
@@ -31,8 +38,6 @@ const MapComponent = ({ address }) => {
         if (isMounted) {
           if (data.length > 0) {
             const { lat, lon } = data[0];
-            console.log(lat, lon);
-
             setCoordinates([lat, lon]);
             setLoading(false);
           } else {

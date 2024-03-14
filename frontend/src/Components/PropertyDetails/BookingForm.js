@@ -4,7 +4,14 @@ import { DatePicker, Space } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-const BookingForm = ({ price, propertyName, address, maximumGuest, propertyId, currentBookings }) => {
+const BookingForm = ({
+  price,
+  propertyName,
+  address,
+  maximumGuest,
+  propertyId,
+  currentBookings,
+}) => {
   const [paymentData, setPaymentData] = useState({});
   const [userData, setUserData] = useState({});
   const { RangePicker } = DatePicker;
@@ -15,7 +22,10 @@ const BookingForm = ({ price, propertyName, address, maximumGuest, propertyId, c
     handleFilterChange("checkinDate", dateString[0]);
     handleFilterChange("checkoutDate", dateString[1]);
 
-    const calculatedNights = moment(dateString[1], "YYYY-MM-DD").diff(moment(dateString[0], "YYYY-MM-DD"), "days");
+    const calculatedNights = moment(dateString[1], "YYYY-MM-DD").diff(
+      moment(dateString[0], "YYYY-MM-DD"),
+      "days"
+    );
     const calculatedTotalPrice = price * calculatedNights;
     handleFilterChange("nights", calculatedNights);
     handleFilterChange("totalPrice", calculatedTotalPrice);
@@ -109,7 +119,9 @@ const BookingForm = ({ price, propertyName, address, maximumGuest, propertyId, c
           </div>
         </div>
         <div className="book-place text-center">
-          <button>Book this place &#8377; {paymentData["totalPrice"] || 0}</button>
+          <button>
+            Book this place &#8377; {paymentData["totalPrice"] || 0}
+          </button>
         </div>
       </form>
     </div>

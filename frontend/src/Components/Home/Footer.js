@@ -3,8 +3,8 @@ import "../../CSS/Home.css"
 const Footer = () => {
   return (
     <div>
-        <footer className="fixed-bottom bg-white p-2">
-<p>© 2023 WSA. All Rights Reserved.</p>
+        <footer className='fixed-bottom p-2 bg-light'>
+<p>© Kumar Satwik</p>
 <ul className="footerlist">
 <li>Privacy</li>
 <li>Terms</li>
